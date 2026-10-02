@@ -31,6 +31,13 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     # Connect to Redis / in-memory fallback
     await redis_manager.connect()
 
+    # Ensure tables exist
+    from app.core.database import engine, Base
+    import app.models  # noqa
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    logger.info("Database schemas verified.")
+
     # Launch background stream workers
     incident_task = asyncio.create_task(run_incident_worker())
     delivery_task = asyncio.create_task(run_delivery_worker())
