@@ -14,8 +14,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Shield
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.filled.WifiOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +28,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.shevault.core.design.theme.SheVaultTheme
+import com.shevault.core.design.tokens.SheVaultSafetyStatus
 
 enum class SafetyCardStatus {
     PROTECTED,
@@ -33,40 +36,27 @@ enum class SafetyCardStatus {
     ACTIVE_INCIDENT
 }
 
+/**
+ * Primary Safety Status Card adhering to the invariant:
+ * Never communicate safety state with color alone (Color + Icon + Text).
+ */
 @Composable
 fun SafetyStatusCard(
-    status: SafetyCardStatus,
-    title: String,
-    subtitle: String,
+    status: SheVaultSafetyStatus,
+    title: String? = null,
+    subtitle: String? = null,
     lastCheckedText: String = "Last checked just now",
     modifier: Modifier = Modifier
 ) {
-    val (bgColor, strokeColor, contentColor, icon) = when (status) {
-        SafetyCardStatus.PROTECTED -> Quadruple(
-            SheVaultTheme.colors.safeContainer,
-            SheVaultTheme.colors.safe,
-            SheVaultTheme.colors.safe,
-            Icons.Default.CheckCircle
-        )
-        SafetyCardStatus.LIMITED -> Quadruple(
-            SheVaultTheme.colors.warningContainer,
-            SheVaultTheme.colors.warning,
-            SheVaultTheme.colors.warning,
-            Icons.Default.Warning
-        )
-        SafetyCardStatus.ACTIVE_INCIDENT -> Quadruple(
-            SheVaultTheme.colors.emergencyContainer,
-            SheVaultTheme.colors.emergency,
-            SheVaultTheme.colors.emergency,
-            Icons.Default.Warning
-        )
-    }
+    val descriptor = SheVaultTheme.status.descriptorFor(status)
+    val displayTitle = title ?: descriptor.title
+    val displaySubtitle = subtitle ?: descriptor.description
 
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(bgColor, RoundedCornerShape(16.dp))
-            .border(1.5.dp, strokeColor.copy(alpha = 0.5f), RoundedCornerShape(16.dp))
+            .background(descriptor.containerColor, RoundedCornerShape(16.dp))
+            .border(1.5.dp, descriptor.borderColor.copy(alpha = 0.5f), RoundedCornerShape(16.dp))
             .padding(18.dp)
     ) {
         Column {
@@ -74,21 +64,21 @@ fun SafetyStatusCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    tint = contentColor,
+                    imageVector = descriptor.icon,
+                    contentDescription = descriptor.title,
+                    tint = descriptor.contentColor,
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(
-                    text = title,
+                    text = displayTitle,
                     style = SheVaultTheme.typography.titleLarge,
-                    color = contentColor
+                    color = descriptor.contentColor
                 )
             }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = subtitle,
+                text = displaySubtitle,
                 style = SheVaultTheme.typography.bodyMedium,
                 color = SheVaultTheme.colors.onSurface
             )
@@ -102,4 +92,27 @@ fun SafetyStatusCard(
     }
 }
 
-private data class Quadruple<A, B, C, D>(val first: A, val second: B, val third: C, val fourth: D)
+/**
+ * Backward compatibility overload for legacy SafetyCardStatus enum.
+ */
+@Composable
+fun SafetyStatusCard(
+    status: SafetyCardStatus,
+    title: String,
+    subtitle: String,
+    lastCheckedText: String = "Last checked just now",
+    modifier: Modifier = Modifier
+) {
+    val mappedStatus = when (status) {
+        SafetyCardStatus.PROTECTED -> SheVaultSafetyStatus.PROTECTED
+        SafetyCardStatus.LIMITED -> SheVaultSafetyStatus.LIMITED
+        SafetyCardStatus.ACTIVE_INCIDENT -> SheVaultSafetyStatus.ACTIVE
+    }
+    SafetyStatusCard(
+        status = mappedStatus,
+        title = title,
+        subtitle = subtitle,
+        lastCheckedText = lastCheckedText,
+        modifier = modifier
+    )
+}

@@ -1,7 +1,43 @@
 package com.shevault.core.design.tokens
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Shield
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.filled.WifiOff
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+
+/**
+ * High-Priority Primary Safety Statuses as defined by SheVault Master Palette.
+ *
+ * CRITICAL INVARIANT:
+ * Never communicate safety state with color alone.
+ * Every status is intrinsically bound to: (Color + Icon + Text).
+ */
+enum class SheVaultSafetyStatus {
+    PROTECTED,
+    LIMITED,
+    ACTIVE,
+    DISCREET,
+    OFFLINE
+}
+
+/**
+ * Immutable descriptor binding Color + Icon + Text for safety states.
+ */
+@Immutable
+data class SafetyStatusDescriptor(
+    val status: SheVaultSafetyStatus,
+    val title: String,
+    val description: String,
+    val contentColor: Color,
+    val containerColor: Color,
+    val borderColor: Color,
+    val icon: ImageVector
+)
 
 /**
  * Global safety states representing user protection level.
@@ -24,7 +60,8 @@ data class StatusColorStyle(
     val content: Color,
     val border: Color,
     val glow: Color,
-    val labelText: String
+    val labelText: String,
+    val icon: ImageVector = Icons.Default.CheckCircle
 )
 
 @Immutable
@@ -48,96 +85,161 @@ data class SheVaultStatusTokens(
             SafetyState.OFFLINE_STANDALONE -> offlineStandalone
         }
     }
+
+    /**
+     * Resolves the complete Color + Icon + Text descriptor for a primary safety status.
+     */
+    fun descriptorFor(status: SheVaultSafetyStatus): SafetyStatusDescriptor {
+        return when (status) {
+            SheVaultSafetyStatus.PROTECTED -> SafetyStatusDescriptor(
+                status = SheVaultSafetyStatus.PROTECTED,
+                title = "You're Protected",
+                description = "Continuous mesh monitoring & location fix active",
+                contentColor = safe.content,
+                containerColor = safe.background,
+                borderColor = safe.border,
+                icon = safe.icon
+            )
+            SheVaultSafetyStatus.LIMITED -> SafetyStatusDescriptor(
+                status = SheVaultSafetyStatus.LIMITED,
+                title = "Protection Partially Limited",
+                description = "Critical permission or location accuracy constrained",
+                contentColor = cautionAlert.content,
+                containerColor = cautionAlert.background,
+                borderColor = cautionAlert.border,
+                icon = cautionAlert.icon
+            )
+            SheVaultSafetyStatus.ACTIVE -> SafetyStatusDescriptor(
+                status = SheVaultSafetyStatus.ACTIVE,
+                title = "Emergency Session Active",
+                description = "SOS dispatched • Streaming encrypted location & telemetry",
+                contentColor = emergencySos.content,
+                containerColor = emergencySos.background,
+                borderColor = emergencySos.border,
+                icon = emergencySos.icon
+            )
+            SheVaultSafetyStatus.DISCREET -> SafetyStatusDescriptor(
+                status = SheVaultSafetyStatus.DISCREET,
+                title = "Discreet Mode Active",
+                description = "Calculator camouflage running • Zero safety indicators exposed",
+                contentColor = discreteDecoy.content,
+                containerColor = discreteDecoy.background,
+                borderColor = discreteDecoy.border,
+                icon = discreteDecoy.icon
+            )
+            SheVaultSafetyStatus.OFFLINE -> SafetyStatusDescriptor(
+                status = SheVaultSafetyStatus.OFFLINE,
+                title = "Offline Mode",
+                description = "Cellular/Cloud disconnected • Local SMS and Room journal operational",
+                contentColor = offlineStandalone.content,
+                containerColor = offlineStandalone.background,
+                borderColor = offlineStandalone.border,
+                icon = offlineStandalone.icon
+            )
+        }
+    }
 }
 
 val LightSheVaultStatusTokens = SheVaultStatusTokens(
     safe = StatusColorStyle(
-        background = PaletteTokens.SafeBg,
-        content = PaletteTokens.SafeTeal,
-        border = PaletteTokens.SafeTeal.copy(alpha = 0.3f),
-        glow = PaletteTokens.SafeTeal.copy(alpha = 0.25f),
-        labelText = "Protected & Safe"
+        background = SafeTokens.surface,
+        content = SafeTokens.default,
+        border = SafeTokens.default.copy(alpha = 0.3f),
+        glow = SafeTokens.default.copy(alpha = 0.25f),
+        labelText = "You're Protected",
+        icon = Icons.Default.Shield
     ),
     activeMonitoring = StatusColorStyle(
-        background = PaletteTokens.PlumPrimaryTint,
-        content = PaletteTokens.PlumPrimary,
-        border = PaletteTokens.PlumPrimary.copy(alpha = 0.3f),
-        glow = PaletteTokens.PlumPrimary.copy(alpha = 0.3f),
-        labelText = "Live SafeRoute Tracking"
+        background = BrandTokens.primaryTint,
+        content = BrandTokens.primary,
+        border = BrandTokens.primary.copy(alpha = 0.3f),
+        glow = BrandTokens.primary.copy(alpha = 0.3f),
+        labelText = "Live SafeRoute Tracking",
+        icon = Icons.Default.Shield
     ),
     cautionAlert = StatusColorStyle(
-        background = PaletteTokens.WarningBg,
-        content = PaletteTokens.WarningAmber,
-        border = PaletteTokens.WarningAmber.copy(alpha = 0.4f),
-        glow = PaletteTokens.WarningAmber.copy(alpha = 0.35f),
-        labelText = "Check-in Expiring"
+        background = WarningTokens.surface,
+        content = WarningTokens.default,
+        border = WarningTokens.default.copy(alpha = 0.4f),
+        glow = WarningTokens.default.copy(alpha = 0.35f),
+        labelText = "Protection Partially Limited",
+        icon = Icons.Default.Warning
     ),
     // Emergency SOS uses SheVaultColors.emergency
     emergencySos = StatusColorStyle(
-        background = PaletteTokens.EmergencyBg,
+        background = EmergencyTokens.surface,
         content = SheVaultColors.emergency,
-        border = PaletteTokens.EmergencyDark,
+        border = EmergencyTokens.dark,
         glow = SheVaultColors.emergency.copy(alpha = 0.45f),
-        labelText = "SOS Dispatched"
+        labelText = "Emergency Session Active",
+        icon = Icons.Default.Warning
     ),
     discreteDecoy = StatusColorStyle(
-        background = PaletteTokens.Slate100,
-        content = PaletteTokens.Slate700,
-        border = PaletteTokens.Slate300,
+        background = BrandTokens.primaryTint,
+        content = LightNeutralTokens.textSecondary,
+        border = LightNeutralTokens.border,
         glow = Color.Transparent,
-        labelText = "Decoy Active"
+        labelText = "Discreet Mode Active",
+        icon = Icons.Default.VisibilityOff
     ),
     offlineStandalone = StatusColorStyle(
-        background = PaletteTokens.Slate100,
-        content = PaletteTokens.Slate600,
-        border = PaletteTokens.Slate300,
-        glow = PaletteTokens.Slate400.copy(alpha = 0.2f),
-        labelText = "Offline (SMS Mode)"
+        background = WarningTokens.surface,
+        content = WarningTokens.default,
+        border = WarningTokens.default.copy(alpha = 0.3f),
+        glow = WarningTokens.default.copy(alpha = 0.2f),
+        labelText = "Offline Mode",
+        icon = Icons.Default.WifiOff
     )
 )
 
 val DarkSheVaultStatusTokens = SheVaultStatusTokens(
     safe = StatusColorStyle(
-        background = Color(0xFF042F2E),
-        content = PaletteTokens.SafeTeal,
-        border = PaletteTokens.SafeTeal,
-        glow = PaletteTokens.SafeTeal.copy(alpha = 0.3f),
-        labelText = "Protected & Safe"
+        background = SafeTokens.surfaceDark,
+        content = SafeTokens.default,
+        border = SafeTokens.default,
+        glow = SafeTokens.default.copy(alpha = 0.3f),
+        labelText = "You're Protected",
+        icon = Icons.Default.Shield
     ),
     activeMonitoring = StatusColorStyle(
-        background = PaletteTokens.PlumPrimaryDark,
-        content = PaletteTokens.DarkFocus,
-        border = PaletteTokens.DarkFocus,
-        glow = PaletteTokens.DarkFocus.copy(alpha = 0.35f),
-        labelText = "Live SafeRoute Tracking"
+        background = BrandTokens.primaryDark,
+        content = FocusRingTokens.dark,
+        border = FocusRingTokens.dark,
+        glow = FocusRingTokens.dark.copy(alpha = 0.35f),
+        labelText = "Live SafeRoute Tracking",
+        icon = Icons.Default.Shield
     ),
     cautionAlert = StatusColorStyle(
-        background = Color(0xFF451A03),
-        content = PaletteTokens.WarningAmber,
-        border = PaletteTokens.WarningAmber,
-        glow = PaletteTokens.WarningAmber.copy(alpha = 0.4f),
-        labelText = "Check-in Expiring"
+        background = WarningTokens.surfaceDark,
+        content = WarningTokens.default,
+        border = WarningTokens.default,
+        glow = WarningTokens.default.copy(alpha = 0.4f),
+        labelText = "Protection Partially Limited",
+        icon = Icons.Default.Warning
     ),
     // Emergency SOS in dark mode
     emergencySos = StatusColorStyle(
-        background = PaletteTokens.EmergencyDark,
-        content = PaletteTokens.White,
+        background = EmergencyTokens.surfaceDark,
+        content = EmergencyTokens.surface,
         border = SheVaultColors.emergency,
         glow = SheVaultColors.emergency.copy(alpha = 0.6f),
-        labelText = "SOS Dispatched"
+        labelText = "Emergency Session Active",
+        icon = Icons.Default.Warning
     ),
     discreteDecoy = StatusColorStyle(
-        background = PaletteTokens.DarkSurface,
-        content = PaletteTokens.Slate400,
-        border = PaletteTokens.DarkBorder,
+        background = DarkNeutralTokens.surface,
+        content = DarkNeutralTokens.textSecondary,
+        border = DarkNeutralTokens.border,
         glow = Color.Transparent,
-        labelText = "Decoy Active"
+        labelText = "Discreet Mode Active",
+        icon = Icons.Default.VisibilityOff
     ),
     offlineStandalone = StatusColorStyle(
-        background = PaletteTokens.DarkSurface,
-        content = PaletteTokens.DarkSecondary,
-        border = PaletteTokens.DarkBorder,
-        glow = PaletteTokens.Slate400.copy(alpha = 0.2f),
-        labelText = "Offline (SMS Mode)"
+        background = WarningTokens.surfaceDark,
+        content = WarningTokens.default,
+        border = WarningTokens.default.copy(alpha = 0.5f),
+        glow = WarningTokens.default.copy(alpha = 0.2f),
+        labelText = "Offline Mode",
+        icon = Icons.Default.WifiOff
     )
 )

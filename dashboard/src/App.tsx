@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { SheVaultColors } from "./tokens";
+import {
+  SheVaultColors,
+  BrandTokens,
+  DarkNeutralTokens,
+  SafeTokens,
+  WarningTokens,
+  InfoTokens,
+  EmergencyTokens,
+} from "./tokens";
 
 interface Incident {
   id: string;
@@ -28,11 +36,10 @@ interface TrustedContact {
 export function App() {
   const [activeTab, setActiveTab] = useState<"incidents" | "contacts" | "telemetry" | "raw">("incidents");
   const [selectedIncidentId, setSelectedIncidentId] = useState<string>("INC-2026-9812");
-  const [systemOnline, setSystemOnline] = useState<boolean>(true);
   const [lastHeartbeat, setLastHeartbeat] = useState<string>(new Date().toLocaleTimeString());
 
   // Incident state matching our Android Session Machine
-  const [incidents, setIncidents] = useState<Incident[]>([
+  const [incidents] = useState<Incident[]>([
     {
       id: "INC-2026-9812",
       user: "Priya Sharma",
@@ -82,12 +89,12 @@ export function App() {
   const activeIncident = incidents.find((i) => i.id === selectedIncidentId) || incidents[0];
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#090D16", color: SheVaultColors.textPrimary, display: "flex", flexDirection: "column" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: DarkNeutralTokens.background, color: DarkNeutralTokens.textPrimary, display: "flex", flexDirection: "column" }}>
       {/* Top Navbar */}
       <header
         style={{
-          borderBottom: `1px solid ${SheVaultColors.border}`,
-          backgroundColor: "#0F172A",
+          borderBottom: `1px solid ${DarkNeutralTokens.border}`,
+          backgroundColor: DarkNeutralTokens.surface,
           padding: "0.875rem 2rem",
           display: "flex",
           justifyContent: "space-between",
@@ -114,30 +121,30 @@ export function App() {
           </div>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-              <span style={{ fontSize: "1.25rem", fontWeight: 800, letterSpacing: "-0.02em" }}>SheVault</span>
+              <span style={{ fontSize: "1.25rem", fontWeight: 800, letterSpacing: "-0.02em", color: DarkNeutralTokens.textPrimary }}>SheVault</span>
               <span
                 style={{
                   fontSize: "0.68rem",
                   padding: "0.15rem 0.5rem",
                   borderRadius: "999px",
-                  backgroundColor: "#2E0854",
-                  color: "#C4B5FD",
+                  backgroundColor: BrandTokens.primaryDark,
+                  color: BrandTokens.primaryTint,
                   fontWeight: 600,
-                  border: "1px solid #6D28D9",
+                  border: `1px solid ${BrandTokens.primary}`,
                 }}
               >
                 GUARDIAN PORTAL
               </span>
             </div>
-            <span style={{ fontSize: "0.75rem", color: SheVaultColors.textSecondary }}>Native Safety Cloud Dispatch & Telemetry Hub</span>
+            <span style={{ fontSize: "0.75rem", color: DarkNeutralTokens.textSecondary }}>Native Safety Cloud Dispatch & Telemetry Hub</span>
           </div>
         </div>
 
         {/* Global System Telemetry Status */}
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8rem", color: SheVaultColors.textSecondary }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8rem", color: DarkNeutralTokens.textSecondary }}>
             <span>Backend Sync:</span>
-            <code style={{ color: "#38BDF8", backgroundColor: "#1E293B", padding: "0.2rem 0.4rem", borderRadius: "4px" }}>:8000/api/v1</code>
+            <code style={{ color: InfoTokens.default, backgroundColor: DarkNeutralTokens.surfaceElevated, padding: "0.2rem 0.4rem", borderRadius: "4px" }}>:8000/api/v1</code>
           </div>
 
           <div
@@ -145,14 +152,14 @@ export function App() {
               display: "flex",
               alignItems: "center",
               gap: "0.5rem",
-              backgroundColor: "rgba(16, 185, 129, 0.12)",
-              border: "1px solid rgba(16, 185, 129, 0.3)",
+              backgroundColor: SafeTokens.surfaceDark,
+              border: `1px solid ${SafeTokens.default}`,
               padding: "0.35rem 0.75rem",
               borderRadius: "999px",
             }}
           >
-            <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: SheVaultColors.safe }} />
-            <span style={{ fontSize: "0.75rem", fontWeight: 600, color: "#34D399" }}>Live Mesh Connected ({lastHeartbeat})</span>
+            <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: SafeTokens.default }} />
+            <span style={{ fontSize: "0.75rem", fontWeight: 600, color: SafeTokens.surface }}>Live Mesh Connected ({lastHeartbeat})</span>
           </div>
         </div>
       </header>
@@ -163,15 +170,15 @@ export function App() {
         <aside
           style={{
             width: 260,
-            borderRight: `1px solid ${SheVaultColors.border}`,
-            backgroundColor: "#0B1120",
+            borderRight: `1px solid ${DarkNeutralTokens.border}`,
+            backgroundColor: DarkNeutralTokens.surface,
             padding: "1.5rem 1rem",
             display: "flex",
             flexDirection: "column",
             gap: "0.5rem",
           }}
         >
-          <div style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.08em", color: SheVaultColors.textMuted, padding: "0 0.5rem 0.5rem" }}>
+          <div style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.08em", color: DarkNeutralTokens.textDisabled, padding: "0 0.5rem 0.5rem" }}>
             Guardian Controls
           </div>
 
@@ -192,8 +199,8 @@ export function App() {
                 borderRadius: "8px",
                 border: "none",
                 cursor: "pointer",
-                backgroundColor: activeTab === tab.id ? "#1E293B" : "transparent",
-                color: activeTab === tab.id ? SheVaultColors.white : SheVaultColors.textSecondary,
+                backgroundColor: activeTab === tab.id ? DarkNeutralTokens.surfaceElevated : "transparent",
+                color: activeTab === tab.id ? DarkNeutralTokens.textPrimary : DarkNeutralTokens.textSecondary,
                 fontWeight: activeTab === tab.id ? 600 : 500,
                 fontSize: "0.875rem",
                 textAlign: "left",
@@ -207,7 +214,7 @@ export function App() {
               {tab.badge !== null && (
                 <span
                   style={{
-                    backgroundColor: tab.id === "incidents" ? SheVaultColors.emergency : "#334155",
+                    backgroundColor: tab.id === "incidents" ? SheVaultColors.emergency : DarkNeutralTokens.border,
                     color: SheVaultColors.white,
                     fontSize: "0.7rem",
                     fontWeight: 700,
@@ -221,8 +228,8 @@ export function App() {
             </button>
           ))}
 
-          <div style={{ marginTop: "auto", borderTop: `1px solid ${SheVaultColors.border}`, paddingTop: "1rem" }}>
-            <div style={{ fontSize: "0.75rem", color: SheVaultColors.textMuted, padding: "0 0.5rem" }}>
+          <div style={{ marginTop: "auto", borderTop: `1px solid ${DarkNeutralTokens.border}`, paddingTop: "1rem" }}>
+            <div style={{ fontSize: "0.75rem", color: DarkNeutralTokens.textDisabled, padding: "0 0.5rem" }}>
               <div>Android Client: v1.0.0</div>
               <div>SDK Target: API 34 (Android 14)</div>
               <div>FGS: Location | Mic | DataSync</div>
@@ -239,7 +246,7 @@ export function App() {
                 <div
                   className="emergency-beacon"
                   style={{
-                    backgroundColor: "rgba(201, 42, 50, 0.15)",
+                    backgroundColor: EmergencyTokens.surfaceDark,
                     border: `1.5px solid ${SheVaultColors.emergency}`,
                     borderRadius: "14px",
                     padding: "1.25rem 1.75rem",
@@ -265,7 +272,7 @@ export function App() {
                     </div>
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                        <span style={{ fontSize: "1.2rem", fontWeight: 800, color: "#FFA6AB" }}>
+                        <span style={{ fontSize: "1.2rem", fontWeight: 800, color: EmergencyTokens.surface }}>
                           CRITICAL EMERGENCY ACTIVE: {activeIncident.user}
                         </span>
                         <span
@@ -282,7 +289,7 @@ export function App() {
                           BROADCASTING SOS
                         </span>
                       </div>
-                      <div style={{ fontSize: "0.85rem", color: "#FCA5A5", marginTop: "0.25rem" }}>
+                      <div style={{ fontSize: "0.85rem", color: EmergencyTokens.surface, marginTop: "0.25rem" }}>
                         Activated via <strong>{activeIncident.activationMethod}</strong> • High-Rate GPS Breadcrumbs Streaming
                       </div>
                     </div>
@@ -308,9 +315,9 @@ export function App() {
                     <button
                       onClick={() => alert(`SMS Broadcast sent to ${contacts.length} Trusted Circle guardians.`)}
                       style={{
-                        backgroundColor: "#1E293B",
-                        color: SheVaultColors.white,
-                        border: `1px solid ${SheVaultColors.border}`,
+                        backgroundColor: DarkNeutralTokens.surfaceElevated,
+                        color: DarkNeutralTokens.textPrimary,
+                        border: `1px solid ${DarkNeutralTokens.border}`,
                         padding: "0.7rem 1.25rem",
                         borderRadius: "8px",
                         fontWeight: 600,
@@ -329,9 +336,9 @@ export function App() {
                 {/* Live Geospatial Tracker */}
                 <div
                   style={{
-                    backgroundColor: SheVaultColors.surface,
+                    backgroundColor: DarkNeutralTokens.surface,
                     borderRadius: "14px",
-                    border: `1px solid ${SheVaultColors.border}`,
+                    border: `1px solid ${DarkNeutralTokens.border}`,
                     padding: "1.5rem",
                     display: "flex",
                     flexDirection: "column",
@@ -341,16 +348,16 @@ export function App() {
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div>
                       <h3 style={{ fontSize: "1.1rem", fontWeight: 700 }}>Geospatial Live Vector</h3>
-                      <p style={{ fontSize: "0.8rem", color: SheVaultColors.textSecondary }}>Fused Location Provider GPS Fix</p>
+                      <p style={{ fontSize: "0.8rem", color: DarkNeutralTokens.textSecondary }}>Fused Location Provider GPS Fix</p>
                     </div>
                     <span
                       style={{
                         fontSize: "0.75rem",
                         padding: "0.25rem 0.65rem",
                         borderRadius: "6px",
-                        backgroundColor: "#0F172A",
-                        border: "1px solid #334155",
-                        color: "#38BDF8",
+                        backgroundColor: DarkNeutralTokens.surfaceElevated,
+                        border: `1px solid ${DarkNeutralTokens.border}`,
+                        color: InfoTokens.default,
                         fontWeight: 600,
                       }}
                     >
@@ -362,25 +369,25 @@ export function App() {
                   <div
                     style={{
                       height: 320,
-                      backgroundColor: "#0B1120",
+                      backgroundColor: DarkNeutralTokens.background,
                       borderRadius: "10px",
-                      border: "1px solid #1E293B",
+                      border: `1px solid ${DarkNeutralTokens.border}`,
                       position: "relative",
                       overflow: "hidden",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       backgroundImage: `
-                        radial-gradient(circle at center, rgba(30, 41, 59, 0.4) 0, transparent 70%),
-                        linear-gradient(#1E293B 1px, transparent 1px),
-                        linear-gradient(90deg, #1E293B 1px, transparent 1px)
+                        radial-gradient(circle at center, rgba(74, 31, 61, 0.3) 0, transparent 70%),
+                        linear-gradient(${DarkNeutralTokens.divider} 1px, transparent 1px),
+                        linear-gradient(90deg, ${DarkNeutralTokens.divider} 1px, transparent 1px)
                       `,
                       backgroundSize: "100% 100%, 32px 32px, 32px 32px",
                     }}
                   >
                     {/* Radar Range Rings */}
-                    <div style={{ position: "absolute", width: 220, height: 220, borderRadius: "50%", border: "1px dashed rgba(56, 189, 248, 0.2)" }} />
-                    <div style={{ position: "absolute", width: 140, height: 140, borderRadius: "50%", border: "1px solid rgba(56, 189, 248, 0.15)" }} />
+                    <div style={{ position: "absolute", width: 220, height: 220, borderRadius: "50%", border: `1px dashed ${InfoTokens.surfaceDark}` }} />
+                    <div style={{ position: "absolute", width: 140, height: 140, borderRadius: "50%", border: `1px solid ${InfoTokens.surfaceDark}` }} />
 
                     {/* Beacon Pin */}
                     <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -391,29 +398,30 @@ export function App() {
                           borderRadius: "50%",
                           backgroundColor: SheVaultColors.emergency,
                           boxShadow: "0 0 24px rgba(201, 42, 50, 0.9)",
-                          border: "3px solid #FFF",
+                          border: `3px solid ${DarkNeutralTokens.surfaceElevated}`,
                         }}
                       />
                       <div
                         style={{
                           marginTop: "0.5rem",
-                          backgroundColor: "#0F172A",
-                          border: `1px solid ${SheVaultColors.border}`,
+                          backgroundColor: DarkNeutralTokens.surfaceElevated,
+                          border: `1px solid ${DarkNeutralTokens.border}`,
                           padding: "0.3rem 0.6rem",
                           borderRadius: "6px",
                           fontSize: "0.75rem",
                           fontWeight: 700,
+                          color: DarkNeutralTokens.textPrimary,
                         }}
                       >
                         📍 {activeIncident.user} ({activeIncident.movement})
                       </div>
                     </div>
 
-                    <div style={{ position: "absolute", bottom: 12, left: 12, fontSize: "0.75rem", color: SheVaultColors.textMuted }}>
+                    <div style={{ position: "absolute", bottom: 12, left: 12, fontSize: "0.75rem", color: DarkNeutralTokens.textSecondary }}>
                       Lat: {activeIncident.coords.lat.toFixed(6)} | Lng: {activeIncident.coords.lng.toFixed(6)}
                     </div>
 
-                    <div style={{ position: "absolute", bottom: 12, right: 12, fontSize: "0.75rem", color: "#38BDF8" }}>
+                    <div style={{ position: "absolute", bottom: 12, right: 12, fontSize: "0.75rem", color: InfoTokens.default }}>
                       Breadcrumb #{activeIncident.breadcrumbsCount} Ingested
                     </div>
                   </div>
@@ -422,9 +430,9 @@ export function App() {
                 {/* Device Hardware & Telemetry Snapshot Card */}
                 <div
                   style={{
-                    backgroundColor: SheVaultColors.surface,
+                    backgroundColor: DarkNeutralTokens.surface,
                     borderRadius: "14px",
-                    border: `1px solid ${SheVaultColors.border}`,
+                    border: `1px solid ${DarkNeutralTokens.border}`,
                     padding: "1.5rem",
                     display: "flex",
                     flexDirection: "column",
@@ -435,34 +443,34 @@ export function App() {
 
                   <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
                     {[
-                      { label: "Hardware Motion Classifier", value: activeIncident.movement, tag: "Dynamic Sampling (3s)", color: "#F59E0B" },
+                      { label: "Hardware Motion Classifier", value: activeIncident.movement, tag: "Dynamic Sampling (3s)", color: WarningTokens.default },
                       {
                         label: "Device Battery",
                         value: `${activeIncident.battery}% (${activeIncident.charging ? "Charging" : "Discharging"})`,
                         tag: activeIncident.battery < 20 ? "CRITICAL TIER" : "NORMAL TIER",
-                        color: activeIncident.battery < 20 ? SheVaultColors.emergency : SheVaultColors.safe,
+                        color: activeIncident.battery < 20 ? SheVaultColors.emergency : SafeTokens.default,
                       },
-                      { label: "Ambient Audio Evidence", value: activeIncident.audioRecording ? "Capturing (Microphone FGS)" : "Disabled", tag: "FGS Mic", color: "#38BDF8" },
-                      { label: "Session Token", value: activeIncident.id, tag: "Room Persisted", color: SheVaultColors.textSecondary },
-                      { label: "Coerced Duress Guard", value: "Active (Covert Protocol)", tag: "Zero Client Leak", color: SheVaultColors.safe },
+                      { label: "Ambient Audio Evidence", value: activeIncident.audioRecording ? "Capturing (Microphone FGS)" : "Disabled", tag: "FGS Mic", color: InfoTokens.default },
+                      { label: "Session Token", value: activeIncident.id, tag: "Room Persisted", color: DarkNeutralTokens.textSecondary },
+                      { label: "Coerced Duress Guard", value: "Active (Covert Protocol)", tag: "Zero Client Leak", color: SafeTokens.default },
                     ].map((row, idx) => (
                       <div
                         key={idx}
                         style={{
-                          backgroundColor: "#0F172A",
+                          backgroundColor: DarkNeutralTokens.surfaceElevated,
                           borderRadius: "8px",
                           padding: "0.75rem 1rem",
-                          border: "1px solid #1E293B",
+                          border: `1px solid ${DarkNeutralTokens.border}`,
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
                         }}
                       >
                         <div>
-                          <div style={{ fontSize: "0.75rem", color: SheVaultColors.textSecondary }}>{row.label}</div>
+                          <div style={{ fontSize: "0.75rem", color: DarkNeutralTokens.textSecondary }}>{row.label}</div>
                           <div style={{ fontSize: "0.95rem", fontWeight: 700, color: row.color, marginTop: "0.15rem" }}>{row.value}</div>
                         </div>
-                        <span style={{ fontSize: "0.68rem", backgroundColor: "#1E293B", padding: "0.2rem 0.5rem", borderRadius: "4px", color: SheVaultColors.textMuted }}>
+                        <span style={{ fontSize: "0.68rem", backgroundColor: DarkNeutralTokens.background, padding: "0.2rem 0.5rem", borderRadius: "4px", color: DarkNeutralTokens.textDisabled }}>
                           {row.tag}
                         </span>
                       </div>
@@ -474,16 +482,16 @@ export function App() {
           )}
 
           {activeTab === "contacts" && (
-            <div style={{ backgroundColor: SheVaultColors.surface, borderRadius: "14px", border: `1px solid ${SheVaultColors.border}`, padding: "1.75rem" }}>
+            <div style={{ backgroundColor: DarkNeutralTokens.surface, borderRadius: "14px", border: `1px solid ${DarkNeutralTokens.border}`, padding: "1.75rem" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
                 <div>
                   <h2 style={{ fontSize: "1.3rem", fontWeight: 700 }}>Trusted Circle Contacts</h2>
-                  <p style={{ color: SheVaultColors.textSecondary, fontSize: "0.85rem" }}>Configured in Onboarding & Persisted in Room database</p>
+                  <p style={{ color: DarkNeutralTokens.textSecondary, fontSize: "0.85rem" }}>Configured in Onboarding & Persisted in Room database</p>
                 </div>
                 <button
                   onClick={() => alert("Add Contact dialog")}
                   style={{
-                    backgroundColor: SheVaultColors.primary,
+                    backgroundColor: BrandTokens.primary,
                     color: SheVaultColors.white,
                     border: "none",
                     padding: "0.6rem 1rem",
@@ -501,8 +509,8 @@ export function App() {
                   <div
                     key={i}
                     style={{
-                      backgroundColor: "#0F172A",
-                      border: `1px solid ${SheVaultColors.border}`,
+                      backgroundColor: DarkNeutralTokens.surfaceElevated,
+                      border: `1px solid ${DarkNeutralTokens.border}`,
                       borderRadius: "10px",
                       padding: "1.2rem",
                       display: "flex",
@@ -512,16 +520,16 @@ export function App() {
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                       <span style={{ fontWeight: 700, fontSize: "1.05rem" }}>{contact.name}</span>
-                      <span style={{ backgroundColor: "#2E0854", color: "#C4B5FD", fontSize: "0.7rem", padding: "0.2rem 0.5rem", borderRadius: "999px" }}>
+                      <span style={{ backgroundColor: BrandTokens.primaryDark, color: BrandTokens.primaryTint, fontSize: "0.7rem", padding: "0.2rem 0.5rem", borderRadius: "999px" }}>
                         Priority #{contact.priority}
                       </span>
                     </div>
-                    <div style={{ fontSize: "0.85rem", color: SheVaultColors.textSecondary }}>
-                      Relation: <strong style={{ color: SheVaultColors.textPrimary }}>{contact.relation}</strong>
+                    <div style={{ fontSize: "0.85rem", color: DarkNeutralTokens.textSecondary }}>
+                      Relation: <strong style={{ color: DarkNeutralTokens.textPrimary }}>{contact.relation}</strong>
                     </div>
-                    <div style={{ fontSize: "0.85rem", color: SheVaultColors.textSecondary }}>Phone: {contact.phone}</div>
+                    <div style={{ fontSize: "0.85rem", color: DarkNeutralTokens.textSecondary }}>Phone: {contact.phone}</div>
                     <div style={{ marginTop: "0.4rem", display: "flex", gap: "0.5rem", fontSize: "0.75rem" }}>
-                      <span style={{ color: contact.canReceiveLocation ? "#34D399" : "#94A3B8" }}>
+                      <span style={{ color: contact.canReceiveLocation ? SafeTokens.default : DarkNeutralTokens.textDisabled }}>
                         {contact.canReceiveLocation ? "✓ Location Stream Enabled" : "✕ Location Disabled"}
                       </span>
                     </div>
@@ -532,9 +540,9 @@ export function App() {
           )}
 
           {activeTab === "telemetry" && (
-            <div style={{ backgroundColor: SheVaultColors.surface, borderRadius: "14px", border: `1px solid ${SheVaultColors.border}`, padding: "1.75rem" }}>
+            <div style={{ backgroundColor: DarkNeutralTokens.surface, borderRadius: "14px", border: `1px solid ${DarkNeutralTokens.border}`, padding: "1.75rem" }}>
               <h2 style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "0.5rem" }}>Adaptive Telemetry Policy Engine</h2>
-              <p style={{ color: SheVaultColors.textSecondary, fontSize: "0.85rem", marginBottom: "1.5rem" }}>
+              <p style={{ color: DarkNeutralTokens.textSecondary, fontSize: "0.85rem", marginBottom: "1.5rem" }}>
                 Dynamically tunes GPS, sensor, and upload intervals based on battery temperature, movement velocity, and foreground service lifecycle.
               </p>
 
@@ -544,13 +552,13 @@ export function App() {
                     tier: "NORMAL TIER",
                     status: "Active When Battery > 25%",
                     desc: "3-5s GPS Breadcrumbs, high-fidelity accelerometer variance, live WebSocket streaming.",
-                    color: SheVaultColors.safe,
+                    color: SafeTokens.default,
                   },
                   {
                     tier: "CONSTRAINED TIER",
                     status: "Active When Battery 10% - 25% or Temp >= 42°C",
                     desc: "15s GPS batching, sensor rate halved, cellular back-off applied.",
-                    color: SheVaultColors.warning,
+                    color: WarningTokens.default,
                   },
                   {
                     tier: "CRITICAL TIER",
@@ -562,7 +570,7 @@ export function App() {
                   <div
                     key={idx}
                     style={{
-                      backgroundColor: "#0F172A",
+                      backgroundColor: DarkNeutralTokens.surfaceElevated,
                       border: `1.5px solid ${tier.color}`,
                       borderRadius: "10px",
                       padding: "1.25rem",
@@ -572,8 +580,8 @@ export function App() {
                     }}
                   >
                     <div style={{ fontWeight: 800, color: tier.color, fontSize: "1.1rem" }}>{tier.tier}</div>
-                    <div style={{ fontSize: "0.78rem", color: "#94A3B8" }}>{tier.status}</div>
-                    <p style={{ fontSize: "0.85rem", color: SheVaultColors.textSecondary, lineHeight: 1.4 }}>{tier.desc}</p>
+                    <div style={{ fontSize: "0.78rem", color: DarkNeutralTokens.textSecondary }}>{tier.status}</div>
+                    <p style={{ fontSize: "0.85rem", color: DarkNeutralTokens.textSecondary, lineHeight: 1.4 }}>{tier.desc}</p>
                   </div>
                 ))}
               </div>
@@ -581,9 +589,9 @@ export function App() {
           )}
 
           {activeTab === "raw" && (
-            <div style={{ backgroundColor: SheVaultColors.surface, borderRadius: "14px", border: `1px solid ${SheVaultColors.border}`, padding: "1.75rem" }}>
+            <div style={{ backgroundColor: DarkNeutralTokens.surface, borderRadius: "14px", border: `1px solid ${DarkNeutralTokens.border}`, padding: "1.75rem" }}>
               <h2 style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "0.5rem" }}>Local Room Incident Journal Timeline</h2>
-              <p style={{ color: SheVaultColors.textSecondary, fontSize: "0.85rem", marginBottom: "1.5rem" }}>
+              <p style={{ color: DarkNeutralTokens.textSecondary, fontSize: "0.85rem", marginBottom: "1.5rem" }}>
                 Forensic event timeline reconstructed from Room database table <code>incident_events</code>.
               </p>
 
@@ -598,7 +606,7 @@ export function App() {
                   <div
                     key={i}
                     style={{
-                      backgroundColor: "#0F172A",
+                      backgroundColor: DarkNeutralTokens.surfaceElevated,
                       padding: "0.85rem 1.25rem",
                       borderRadius: "8px",
                       display: "flex",
@@ -606,14 +614,14 @@ export function App() {
                       alignItems: "center",
                       fontFamily: "monospace",
                       fontSize: "0.85rem",
-                      border: "1px solid #1E293B",
+                      border: `1px solid ${DarkNeutralTokens.border}`,
                     }}
                   >
                     <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
-                      <span style={{ color: "#38BDF8" }}>{item.ts}</span>
+                      <span style={{ color: InfoTokens.default }}>{item.ts}</span>
                       <strong style={{ color: SheVaultColors.emergency }}>{item.event}</strong>
                     </div>
-                    <code style={{ color: "#94A3B8" }}>{item.payload}</code>
+                    <code style={{ color: DarkNeutralTokens.textSecondary }}>{item.payload}</code>
                   </div>
                 ))}
               </div>

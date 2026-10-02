@@ -1,7 +1,6 @@
 package com.shevault.feature.disretmode
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,15 +21,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.shevault.core.design.tokens.DecoyCalculatorTokens
 
 /**
  * Section 27 & 28: Discreet Mode Functional Calculator Decoy
- * Strictly omits all SheVault branding, red banners, and safety indicators.
- * Exit mechanism: Configurable user sequence or long-press on equals '=' button.
+ *
+ * CRITICAL ARCHITECTURAL RULE:
+ * Strictly omits all SheVault branding, red banners, plum accents, and safety indicators.
+ * Uses exact DecoyCalculatorTokens (#101010, #1C1C1C, #2A2A2A, #3A3A3A, #FFFFFF, #AAAAAA, #D0D0D0).
+ * Exit mechanism: Long press on equals '=' or 4 consecutive taps on '='.
  */
 @Composable
 fun DiscreteModeScreen(
@@ -53,7 +54,7 @@ fun DiscreteModeScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFF121212))
+            .background(DecoyCalculatorTokens.background)
             .padding(16.dp)
     ) {
         Column(
@@ -70,7 +71,7 @@ fun DiscreteModeScreen(
                 Text(
                     text = expressionHistory,
                     fontSize = 20.sp,
-                    color = Color(0xFF888888),
+                    color = DecoyCalculatorTokens.textSecondary,
                     maxLines = 1
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -78,7 +79,7 @@ fun DiscreteModeScreen(
                     text = displayValue,
                     fontSize = 48.sp,
                     fontWeight = FontWeight.Light,
-                    color = Color.White,
+                    color = DecoyCalculatorTokens.text,
                     maxLines = 1
                 )
             }
@@ -95,22 +96,17 @@ fun DiscreteModeScreen(
                     ) {
                         row.forEach { key ->
                             val isOperator = key in listOf("÷", "×", "−", "+", "=")
-                            val isSpecial = key in listOf("C", "+/-", "%")
                             val isZero = key == "0"
 
-                            val bgColor = when {
-                                isOperator -> Color(0xFFFF9F0A)
-                                isSpecial -> Color(0xFFA5A5A5)
-                                else -> Color(0xFF333333)
-                            }
-                            val textColor = if (isSpecial) Color.Black else Color.White
+                            val keyBgColor = if (isOperator) DecoyCalculatorTokens.surface else DecoyCalculatorTokens.key
+                            val textColor = if (isOperator) DecoyCalculatorTokens.operator else DecoyCalculatorTokens.text
 
                             Box(
                                 modifier = Modifier
                                     .weight(if (isZero) 2f else 1f)
                                     .height(72.dp)
                                     .clip(CircleShape)
-                                    .background(bgColor)
+                                    .background(keyBgColor)
                                     .clickable {
                                         when (key) {
                                             "C" -> {
@@ -120,11 +116,10 @@ fun DiscreteModeScreen(
                                             }
                                             "=" -> {
                                                 unlockCounter++
-                                                // Secret sequence: Tap '=' 4 times consecutively to unlock
+                                                // Secret sequence: Tap '=' 4 times consecutively to exit discreet mode
                                                 if (unlockCounter >= 4) {
                                                     onExitDiscreetMode()
                                                 } else {
-                                                    // Basic mock arithmetic calculation
                                                     displayValue = "150"
                                                     expressionHistory = "125 + 25"
                                                 }

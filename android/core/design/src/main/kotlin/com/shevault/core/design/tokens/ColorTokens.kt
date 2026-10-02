@@ -19,51 +19,190 @@ object SheVaultColors {
 }
 
 /**
- * Foundation Raw Palette Tokens according to SheVault Locked Palette Specification.
+ * 1. Brand Palette Tokens
+ * Rule: Plum = SheVault (#6D2E5B).
+ * Rose and peach are supporting accents, not replacements for plum.
+ */
+object BrandTokens {
+    val primary     = Color(0xFF6D2E5B) // Main brand, primary actions, active navigation
+    val primaryDark = Color(0xFF4A1F3D) // Deep brand surfaces, pressed states, headers
+    val primaryTint = Color(0xFFF1E5EF) // Selected cards, soft brand backgrounds
+    val rose        = Color(0xFFC85C7B) // Accent, illustrations, large visual elements
+    val peach       = Color(0xFFF4B6A6) // Warm decorative highlight
+}
+
+/**
+ * 2. Light Theme Neutrals
+ * Note: textSecondary is strictly #5C5459 (rather than #70686D).
+ */
+object LightNeutralTokens {
+    val background      = Color(0xFFFFF9F7) // Application background
+    val surface         = Color(0xFFFFFFFF) // Cards, sheets, dialogs
+    val surfaceElevated = Color(0xFFFFFFFF) // Elevated surfaces
+    val textPrimary     = Color(0xFF211D20) // Main text
+    val textSecondary   = Color(0xFF5C5459) // Secondary/helper text
+    val textDisabled    = Color(0xFF9D959A) // Disabled text
+    val border          = Color(0xFFE7DEE3) // Borders
+    val divider         = Color(0xFFEEE7EB) // Soft separators
+}
+
+/**
+ * 3. Dark Theme Neutrals
+ */
+object DarkNeutralTokens {
+    val background      = Color(0xFF151116) // Main background
+    val surface         = Color(0xFF211A21) // Cards
+    val surfaceElevated = Color(0xFF2B222A) // Dialogs/sheets/elevated cards
+    val textPrimary     = Color(0xFFF8F2F5) // Main text
+    val textSecondary   = Color(0xFFC8BDC5) // Secondary text
+    val textDisabled    = Color(0xFF756A73) // Disabled text
+    val border          = Color(0xFF3B3038) // Borders
+    val divider         = Color(0xFF332933) // Soft separators
+}
+
+/**
+ * 4. Safety Semantic Palette
+ */
+object SafeTokens {
+    val default     = Color(0xFF0F766E) // Safe confirmation
+    val dark        = Color(0xFF0A5B55) // Safe dark
+    val surface     = Color(0xFFE6F5F2) // Safe light background container
+    val surfaceDark = Color(0x2E0F766E) // rgba(15, 118, 110, 0.18)
+}
+
+object EmergencyTokens {
+    val default     = SheVaultColors.emergency // #C92A32 - Never decorative
+    val dark        = Color(0xFFA61B23)
+    val surface     = Color(0xFFFDEBEC)
+    val surfaceDark = Color(0x2EC92A32) // rgba(201, 42, 50, 0.18)
+}
+
+object WarningTokens {
+    val default     = Color(0xFFB54708) // Warning default (never amber #D9911E)
+    val dark        = Color(0xFF8C3405)
+    val surface     = Color(0xFFFFF4E5)
+    val surfaceDark = Color(0x2EB54708) // rgba(181, 71, 8, 0.18)
+}
+
+object InfoTokens {
+    val default     = Color(0xFF3978B8)
+    val dark        = Color(0xFF2E6093)
+    val surface     = Color(0xFFEAF2FB)
+    val surfaceDark = Color(0x2E3978B8) // rgba(57, 120, 184, 0.18)
+}
+
+/**
+ * 5. Focus Rings
+ */
+object FocusRingTokens {
+    val light = Color(0xFF6D2E5B) // 3px, 2px offset
+    val dark  = Color(0xFFC978A8) // 3px, 2px offset
+}
+
+/**
+ * 6. Discreet Calculator Decoy Palette
+ * Zero SheVault branding / plum / emergency red.
+ */
+object DecoyCalculatorTokens {
+    val background    = Color(0xFF101010)
+    val surface       = Color(0xFF1C1C1C)
+    val key           = Color(0xFF2A2A2A)
+    val keyPressed     = Color(0xFF3A3A3A)
+    val text          = Color(0xFFFFFFFF)
+    val textSecondary = Color(0xFFAAAAAA)
+    val operator      = Color(0xFFD0D0D0)
+}
+
+/**
+ * 7. Shadows, Scrims & Skeletons
+ */
+object ShadowTokens {
+    val soft  = Color(0x0D4A1F3D) // rgba(74, 31, 61, 0.05)
+    val card  = Color(0x144A1F3D) // rgba(74, 31, 61, 0.08)
+    val modal = Color(0x1F4A1F3D) // rgba(74, 31, 61, 0.12)
+}
+
+object ScrimTokens {
+    val light = Color(0x52211D20) // rgba(33, 29, 32, 0.32)
+    val dark  = Color(0x7A000000) // rgba(0, 0, 0, 0.48)
+}
+
+object SkeletonTokens {
+    val lightBase      = Color(0xFFF3ECEF)
+    val lightHighlight = Color(0xFFFAF6F8)
+    val darkBase       = Color(0xFF2B222A)
+    val darkHighlight  = Color(0xFF3B3038)
+}
+
+/**
+ * 8. Bottom Navigation Tokens
+ * SOS button is strictly excluded from bottom navigation.
+ */
+object BottomNavTokens {
+    val lightInactive   = Color(0xFF706970)
+    val lightActive     = Color(0xFF6D2E5B)
+    val lightActivePill = Color(0xFFF1E5EF)
+    val darkInactive    = Color(0xFFAFA3AC)
+    val darkActive      = Color(0xFFC978A8)
+    val darkActivePill  = Color(0x24C978A8) // rgba(201, 120, 168, 0.14)
+}
+
+/**
+ * Foundation Raw Palette Tokens (Maintained for unified namespace and backwards-compatibility).
  */
 object PaletteTokens {
     // Primary Plum Scale
-    val PlumPrimary     = Color(0xFF6D2E5B) // #6D2E5B
-    val PlumPrimaryDark = Color(0xFF4A1F3D) // #4A1F3D
-    val PlumPrimaryTint = Color(0xFFF1E5EF) // #F1E5EF
-    val RoseAccent      = Color(0xFFC85C7B) // #C85C7B
-    val PeachAccent     = Color(0xFFF4B6A6) // #F4B6A6
+    val PlumPrimary     = BrandTokens.primary
+    val PlumPrimaryDark = BrandTokens.primaryDark
+    val PlumPrimaryTint = BrandTokens.primaryTint
+    val RoseAccent      = BrandTokens.rose
+    val PeachAccent     = BrandTokens.peach
 
     // Light Neutral Scale
-    val LightBackground = Color(0xFFFFF9F7) // #FFF9F7
-    val LightSurface    = Color(0xFFFFFFFF) // #FFFFFF
-    val LightTextPrimary= Color(0xFF211D20) // #211D20
-    val LightSecondary  = Color(0xFF5C5459) // #5C5459
-    val LightBorder     = Color(0xFFE7DEE3) // #E7DEE3
+    val LightBackground = LightNeutralTokens.background
+    val LightSurface    = LightNeutralTokens.surface
+    val LightTextPrimary= LightNeutralTokens.textPrimary
+    val LightSecondary  = LightNeutralTokens.textSecondary
+    val LightBorder     = LightNeutralTokens.border
+    val LightDivider    = LightNeutralTokens.divider
 
     // Semantic Scale
-    val EmergencyDark   = Color(0xFFA61B23) // #A61B23
-    val EmergencyBg     = Color(0xFFFDEBEC) // #FDEBEC
-    val SafeTeal        = Color(0xFF0F766E) // #0F766E
-    val SafeBg          = Color(0xFFE6F5F2) // #E6F5F2
-    val WarningAmber    = Color(0xFFB54708) // #B54708
-    val WarningBg       = Color(0xFFFFF4E5) // #FFF4E5
-    val InfoBlue        = Color(0xFF3978B8) // #3978B8
-    val InfoBg          = Color(0xFFEAF2FB) // #EAF2FB
+    val EmergencyDark   = EmergencyTokens.dark
+    val EmergencyBg     = EmergencyTokens.surface
+    val SafeTeal        = SafeTokens.default
+    val SafeBg          = SafeTokens.surface
+    val WarningAmber    = WarningTokens.default
+    val WarningBg       = WarningTokens.surface
+    val InfoBlue        = InfoTokens.default
+    val InfoBg          = InfoTokens.surface
 
     // Dark Mode Palette
-    val DarkBackground  = Color(0xFF151116) // #151116
-    val DarkSurface     = Color(0xFF211A21) // #211A21
-    val DarkElevated    = Color(0xFF2B222A) // #2B222A
-    val DarkTextPrimary = Color(0xFFF8F2F5) // #F8F2F5
-    val DarkSecondary   = Color(0xFFC8BDC5) // #C8BDC5
-    val DarkBorder      = Color(0xFF3B3038) // #3B3038
-    val DarkFocus       = Color(0xFFC978A8) // #C978A8
+    val DarkBackground  = DarkNeutralTokens.background
+    val DarkSurface     = DarkNeutralTokens.surface
+    val DarkElevated    = DarkNeutralTokens.surfaceElevated
+    val DarkTextPrimary = DarkNeutralTokens.textPrimary
+    val DarkSecondary   = DarkNeutralTokens.textSecondary
+    val DarkBorder      = DarkNeutralTokens.border
+    val DarkDivider     = DarkNeutralTokens.divider
+    val DarkFocus       = FocusRingTokens.dark
 
     // Standard Pure Neutral
     val White           = Color(0xFFFFFFFF)
     val Black           = Color(0xFF000000)
 
+    // Decoy Calculator Aliases
+    val DecoyDarkSurface    = DecoyCalculatorTokens.surface
+    val DecoyDarkBackground = DecoyCalculatorTokens.background
+    val DecoyLightSurface   = LightNeutralTokens.surface
+    val DecoyLightBackground= LightNeutralTokens.background
+    val DecoyAccent         = DecoyCalculatorTokens.operator
+    val DecoyMuted          = DecoyCalculatorTokens.textSecondary
+
     // Legacy aliases for backward compatibility
     val Emergency900    = EmergencyDark
     val Emergency800    = Color(0xFF690005)
     val Emergency700    = Color(0xFF93000A)
-    val Emergency600    = SheVaultColors.emergency // 0xFFC92A32
+    val Emergency600    = SheVaultColors.emergency
     val Emergency500    = Color(0xFFDE3730)
     val Emergency100    = EmergencyBg
     val Emergency50     = Color(0xFFFFEDE8)
@@ -99,13 +238,6 @@ object PaletteTokens {
     val Slate200        = Color(0xFFE2E8F0)
     val Slate100        = PlumPrimaryTint
     val Slate50         = LightBackground
-
-    val DecoyDarkSurface = Color(0xFF1E1E1E)
-    val DecoyDarkBackground = Color(0xFF121212)
-    val DecoyLightSurface = Color(0xFFF3F4F6)
-    val DecoyLightBackground = Color(0xFFFFFFFF)
-    val DecoyAccent = Color(0xFF3B82F6)
-    val DecoyMuted = Color(0xFF64748B)
 }
 
 /**
@@ -127,34 +259,51 @@ data class SheVaultColorScheme(
     val onEmergency: Color,
     val emergencyContainer: Color,
     val onEmergencyContainer: Color,
+    val emergencyDark: Color = EmergencyTokens.dark,
 
     val warning: Color,
     val onWarning: Color,
     val warningContainer: Color,
     val onWarningContainer: Color,
+    val warningDark: Color = WarningTokens.dark,
 
     val safe: Color,
     val onSafe: Color,
     val safeContainer: Color,
     val onSafeContainer: Color,
+    val safeDark: Color = SafeTokens.dark,
 
-    val info: Color = PaletteTokens.InfoBlue,
+    val info: Color = InfoTokens.default,
     val onInfo: Color = PaletteTokens.White,
-    val infoContainer: Color = PaletteTokens.InfoBg,
-    val onInfoContainer: Color = PaletteTokens.InfoBlue,
+    val infoContainer: Color = InfoTokens.surface,
+    val onInfoContainer: Color = InfoTokens.default,
+    val infoDark: Color = InfoTokens.dark,
 
-    val rose: Color = PaletteTokens.RoseAccent,
-    val peach: Color = PaletteTokens.PeachAccent,
+    val rose: Color = BrandTokens.rose,
+    val peach: Color = BrandTokens.peach,
 
     val background: Color,
     val onBackground: Color,
     val surface: Color,
     val onSurface: Color,
+    val surfaceElevated: Color = surface,
     val surfaceVariant: Color,
     val onSurfaceVariant: Color,
 
     val outline: Color,
     val outlineVariant: Color,
+    val divider: Color = outlineVariant,
+
+    val textPrimary: Color = onBackground,
+    val textSecondary: Color = onSurfaceVariant,
+    val textDisabled: Color = LightNeutralTokens.textDisabled,
+
+    val focusRing: Color = primary,
+    val scrim: Color = ScrimTokens.light,
+
+    val navInactive: Color = BottomNavTokens.lightInactive,
+    val navActive: Color = BottomNavTokens.lightActive,
+    val navActivePill: Color = BottomNavTokens.lightActivePill,
 
     val isDark: Boolean = false,
     val isDiscrete: Boolean = false
@@ -164,48 +313,66 @@ data class SheVaultColorScheme(
  * Standard Light Theme Scheme using the SheVault Locked Palette
  */
 val LightSheVaultColorScheme = SheVaultColorScheme(
-    primary = PaletteTokens.PlumPrimary,
+    primary = BrandTokens.primary,
     onPrimary = PaletteTokens.White,
-    primaryContainer = PaletteTokens.PlumPrimaryTint,
-    onPrimaryContainer = PaletteTokens.PlumPrimaryDark,
+    primaryContainer = BrandTokens.primaryTint,
+    onPrimaryContainer = BrandTokens.primaryDark,
 
-    secondary = PaletteTokens.LightSecondary,
+    secondary = LightNeutralTokens.textSecondary,
     onSecondary = PaletteTokens.White,
-    secondaryContainer = PaletteTokens.PlumPrimaryTint,
-    onSecondaryContainer = PaletteTokens.PlumPrimaryDark,
+    secondaryContainer = BrandTokens.primaryTint,
+    onSecondaryContainer = BrandTokens.primaryDark,
 
     emergency = SheVaultColors.emergency,
     onEmergency = PaletteTokens.White,
-    emergencyContainer = PaletteTokens.EmergencyBg,
-    onEmergencyContainer = PaletteTokens.EmergencyDark,
+    emergencyContainer = EmergencyTokens.surface,
+    onEmergencyContainer = EmergencyTokens.dark,
+    emergencyDark = EmergencyTokens.dark,
 
-    warning = PaletteTokens.WarningAmber,
+    warning = WarningTokens.default,
     onWarning = PaletteTokens.White,
-    warningContainer = PaletteTokens.WarningBg,
-    onWarningContainer = PaletteTokens.WarningAmber,
+    warningContainer = WarningTokens.surface,
+    onWarningContainer = WarningTokens.dark,
+    warningDark = WarningTokens.dark,
 
-    safe = PaletteTokens.SafeTeal,
+    safe = SafeTokens.default,
     onSafe = PaletteTokens.White,
-    safeContainer = PaletteTokens.SafeBg,
-    onSafeContainer = PaletteTokens.SafeTeal,
+    safeContainer = SafeTokens.surface,
+    onSafeContainer = SafeTokens.dark,
+    safeDark = SafeTokens.dark,
 
-    info = PaletteTokens.InfoBlue,
+    info = InfoTokens.default,
     onInfo = PaletteTokens.White,
-    infoContainer = PaletteTokens.InfoBg,
-    onInfoContainer = PaletteTokens.InfoBlue,
+    infoContainer = InfoTokens.surface,
+    onInfoContainer = InfoTokens.dark,
+    infoDark = InfoTokens.dark,
 
-    rose = PaletteTokens.RoseAccent,
-    peach = PaletteTokens.PeachAccent,
+    rose = BrandTokens.rose,
+    peach = BrandTokens.peach,
 
-    background = PaletteTokens.LightBackground,
-    onBackground = PaletteTokens.LightTextPrimary,
-    surface = PaletteTokens.LightSurface,
-    onSurface = PaletteTokens.LightTextPrimary,
-    surfaceVariant = PaletteTokens.PlumPrimaryTint,
-    onSurfaceVariant = PaletteTokens.LightSecondary,
+    background = LightNeutralTokens.background,
+    onBackground = LightNeutralTokens.textPrimary,
+    surface = LightNeutralTokens.surface,
+    onSurface = LightNeutralTokens.textPrimary,
+    surfaceElevated = LightNeutralTokens.surfaceElevated,
+    surfaceVariant = BrandTokens.primaryTint,
+    onSurfaceVariant = LightNeutralTokens.textSecondary,
 
-    outline = PaletteTokens.LightBorder,
-    outlineVariant = PaletteTokens.LightBorder,
+    outline = LightNeutralTokens.border,
+    outlineVariant = LightNeutralTokens.border,
+    divider = LightNeutralTokens.divider,
+
+    textPrimary = LightNeutralTokens.textPrimary,
+    textSecondary = LightNeutralTokens.textSecondary,
+    textDisabled = LightNeutralTokens.textDisabled,
+
+    focusRing = FocusRingTokens.light,
+    scrim = ScrimTokens.light,
+
+    navInactive = BottomNavTokens.lightInactive,
+    navActive = BottomNavTokens.lightActive,
+    navActivePill = BottomNavTokens.lightActivePill,
+
     isDark = false,
     isDiscrete = false
 )
@@ -214,90 +381,123 @@ val LightSheVaultColorScheme = SheVaultColorScheme(
  * Standard Dark Theme Scheme using the SheVault Locked Dark Palette
  */
 val DarkSheVaultColorScheme = SheVaultColorScheme(
-    primary = PaletteTokens.DarkFocus,
-    onPrimary = PaletteTokens.DarkBackground,
-    primaryContainer = PaletteTokens.PlumPrimaryDark,
-    onPrimaryContainer = PaletteTokens.DarkTextPrimary,
+    primary = FocusRingTokens.dark,
+    onPrimary = DarkNeutralTokens.background,
+    primaryContainer = BrandTokens.primaryDark,
+    onPrimaryContainer = DarkNeutralTokens.textPrimary,
 
-    secondary = PaletteTokens.DarkSecondary,
-    onSecondary = PaletteTokens.DarkBackground,
-    secondaryContainer = PaletteTokens.DarkElevated,
-    onSecondaryContainer = PaletteTokens.DarkTextPrimary,
+    secondary = DarkNeutralTokens.textSecondary,
+    onSecondary = DarkNeutralTokens.background,
+    secondaryContainer = DarkNeutralTokens.surfaceElevated,
+    onSecondaryContainer = DarkNeutralTokens.textPrimary,
 
     emergency = SheVaultColors.emergency,
     onEmergency = PaletteTokens.White,
-    emergencyContainer = PaletteTokens.EmergencyDark,
-    onEmergencyContainer = PaletteTokens.EmergencyBg,
+    emergencyContainer = EmergencyTokens.surfaceDark,
+    onEmergencyContainer = EmergencyTokens.surface,
+    emergencyDark = EmergencyTokens.dark,
 
-    warning = PaletteTokens.WarningAmber,
-    onWarning = PaletteTokens.DarkBackground,
-    warningContainer = Color(0xFF451A03),
-    onWarningContainer = PaletteTokens.WarningBg,
+    warning = WarningTokens.default,
+    onWarning = DarkNeutralTokens.background,
+    warningContainer = WarningTokens.surfaceDark,
+    onWarningContainer = WarningTokens.surface,
+    warningDark = WarningTokens.dark,
 
-    safe = PaletteTokens.SafeTeal,
+    safe = SafeTokens.default,
     onSafe = PaletteTokens.White,
-    safeContainer = Color(0xFF042F2E),
-    onSafeContainer = PaletteTokens.SafeBg,
+    safeContainer = SafeTokens.surfaceDark,
+    onSafeContainer = SafeTokens.surface,
+    safeDark = SafeTokens.dark,
 
-    info = PaletteTokens.InfoBlue,
+    info = InfoTokens.default,
     onInfo = PaletteTokens.White,
-    infoContainer = Color(0xFF082F49),
-    onInfoContainer = PaletteTokens.InfoBg,
+    infoContainer = InfoTokens.surfaceDark,
+    onInfoContainer = InfoTokens.surface,
+    infoDark = InfoTokens.dark,
 
-    rose = PaletteTokens.RoseAccent,
-    peach = PaletteTokens.PeachAccent,
+    rose = BrandTokens.rose,
+    peach = BrandTokens.peach,
 
-    background = PaletteTokens.DarkBackground,
-    onBackground = PaletteTokens.DarkTextPrimary,
-    surface = PaletteTokens.DarkSurface,
-    onSurface = PaletteTokens.DarkTextPrimary,
-    surfaceVariant = PaletteTokens.DarkElevated,
-    onSurfaceVariant = PaletteTokens.DarkSecondary,
+    background = DarkNeutralTokens.background,
+    onBackground = DarkNeutralTokens.textPrimary,
+    surface = DarkNeutralTokens.surface,
+    onSurface = DarkNeutralTokens.textPrimary,
+    surfaceElevated = DarkNeutralTokens.surfaceElevated,
+    surfaceVariant = DarkNeutralTokens.surfaceElevated,
+    onSurfaceVariant = DarkNeutralTokens.textSecondary,
 
-    outline = PaletteTokens.DarkBorder,
-    outlineVariant = PaletteTokens.DarkBorder,
+    outline = DarkNeutralTokens.border,
+    outlineVariant = DarkNeutralTokens.border,
+    divider = DarkNeutralTokens.divider,
+
+    textPrimary = DarkNeutralTokens.textPrimary,
+    textSecondary = DarkNeutralTokens.textSecondary,
+    textDisabled = DarkNeutralTokens.textDisabled,
+
+    focusRing = FocusRingTokens.dark,
+    scrim = ScrimTokens.dark,
+
+    navInactive = BottomNavTokens.darkInactive,
+    navActive = BottomNavTokens.darkActive,
+    navActivePill = BottomNavTokens.darkActivePill,
+
     isDark = true,
     isDiscrete = false
 )
 
 /**
  * Discrete Decoy Theme Scheme (Calculator camouflage)
+ * Zero SheVault branding / plum / emergency colors exposed to aggressor.
  */
 val DiscreteSheVaultColorScheme = SheVaultColorScheme(
-    primary = PaletteTokens.DecoyAccent,
-    onPrimary = PaletteTokens.White,
-    primaryContainer = PaletteTokens.DecoyDarkSurface,
-    onPrimaryContainer = PaletteTokens.White,
+    primary = DecoyCalculatorTokens.operator,
+    onPrimary = DecoyCalculatorTokens.background,
+    primaryContainer = DecoyCalculatorTokens.surface,
+    onPrimaryContainer = DecoyCalculatorTokens.text,
 
-    secondary = PaletteTokens.DecoyMuted,
-    onSecondary = PaletteTokens.White,
-    secondaryContainer = PaletteTokens.DecoyDarkSurface,
-    onSecondaryContainer = PaletteTokens.White,
+    secondary = DecoyCalculatorTokens.textSecondary,
+    onSecondary = DecoyCalculatorTokens.background,
+    secondaryContainer = DecoyCalculatorTokens.surface,
+    onSecondaryContainer = DecoyCalculatorTokens.text,
 
     emergency = SheVaultColors.emergency,
-    onEmergency = PaletteTokens.White,
-    emergencyContainer = PaletteTokens.DecoyDarkSurface,
-    onEmergencyContainer = PaletteTokens.White,
+    onEmergency = DecoyCalculatorTokens.text,
+    emergencyContainer = DecoyCalculatorTokens.surface,
+    onEmergencyContainer = DecoyCalculatorTokens.text,
 
-    warning = PaletteTokens.DecoyMuted,
-    onWarning = PaletteTokens.White,
-    warningContainer = PaletteTokens.DecoyDarkSurface,
-    onWarningContainer = PaletteTokens.White,
+    warning = DecoyCalculatorTokens.textSecondary,
+    onWarning = DecoyCalculatorTokens.text,
+    warningContainer = DecoyCalculatorTokens.surface,
+    onWarningContainer = DecoyCalculatorTokens.text,
 
-    safe = PaletteTokens.DecoyMuted,
-    onSafe = PaletteTokens.White,
-    safeContainer = PaletteTokens.DecoyDarkSurface,
-    onSafeContainer = PaletteTokens.White,
+    safe = DecoyCalculatorTokens.textSecondary,
+    onSafe = DecoyCalculatorTokens.text,
+    safeContainer = DecoyCalculatorTokens.surface,
+    onSafeContainer = DecoyCalculatorTokens.text,
 
-    background = PaletteTokens.DecoyDarkBackground,
-    onBackground = PaletteTokens.White,
-    surface = PaletteTokens.DecoyDarkSurface,
-    onSurface = PaletteTokens.White,
-    surfaceVariant = PaletteTokens.DecoyDarkSurface,
-    onSurfaceVariant = PaletteTokens.DecoyMuted,
+    background = DecoyCalculatorTokens.background,
+    onBackground = DecoyCalculatorTokens.text,
+    surface = DecoyCalculatorTokens.surface,
+    onSurface = DecoyCalculatorTokens.text,
+    surfaceElevated = DecoyCalculatorTokens.key,
+    surfaceVariant = DecoyCalculatorTokens.surface,
+    onSurfaceVariant = DecoyCalculatorTokens.textSecondary,
 
-    outline = Color(0xFF2A2A2A),
-    outlineVariant = Color(0xFF333333),
+    outline = DecoyCalculatorTokens.key,
+    outlineVariant = DecoyCalculatorTokens.key,
+    divider = DecoyCalculatorTokens.key,
+
+    textPrimary = DecoyCalculatorTokens.text,
+    textSecondary = DecoyCalculatorTokens.textSecondary,
+    textDisabled = DecoyCalculatorTokens.textSecondary,
+
+    focusRing = DecoyCalculatorTokens.keyPressed,
+    scrim = ScrimTokens.dark,
+
+    navInactive = DecoyCalculatorTokens.textSecondary,
+    navActive = DecoyCalculatorTokens.text,
+    navActivePill = DecoyCalculatorTokens.key,
+
     isDark = true,
     isDiscrete = true
 )
