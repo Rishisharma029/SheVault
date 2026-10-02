@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: shevault-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: shevault
+      POSTGRES_PASSWORD: shevault_secure_password
+      POSTGRES_DB: shevault_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: shevault-redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: shevault-backend
+    restart: always
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      DATABASE_URL: "postgresql+asyncpg://shevault:shevault_secure_password@postgres:5432/shevault_db"
+      REDIS_URL: "redis://redis:6379/0"
+      SECRET_KEY: "shevault-secret-key-production-safety-vault-2026"
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:
