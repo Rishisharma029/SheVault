@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  color-scheme: dark;
 }
 
 * {
@@ -12,47 +11,40 @@
 }
 
 body {
-  background-color: #090D16;
-  color: #F8FAFC;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 code, pre {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Pulsing radar animation for active emergency beacon */
-@keyframes emergencyPulse {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(201, 42, 50, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 16px rgba(201, 42, 50, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(201, 42, 50, 0);
-  }
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.emergency-beacon {
-  animation: emergencyPulse 2s infinite ease-in-out;
+button:focus-visible {
+  outline: 2px solid #6D2E5B;
+  outline-offset: 2px;
 }
 
-/* Custom scrollbars */
+/* Restrained scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0F172A;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: rgba(109, 46, 91, 0.15);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: rgba(109, 46, 91, 0.3);
 }
