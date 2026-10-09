@@ -40,7 +40,7 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.kotlinx.coroutines.core)
-
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
+

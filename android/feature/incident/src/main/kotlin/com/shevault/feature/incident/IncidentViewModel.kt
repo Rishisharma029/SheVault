@@ -40,6 +40,7 @@ class IncidentViewModel(
     val sessionManager: IncidentSessionManager = IncidentSessionManager(),
     val credentialManager: DuressCredentialManager = DuressCredentialManager(),
     val panicGestureDetector: PanicGestureDetector = PanicGestureDetector(),
+    val incidentRepository: com.shevault.core.network.IncidentRepository? = null,
     coroutineScope: kotlinx.coroutines.CoroutineScope? = null
 ) : ViewModel() {
 
@@ -91,6 +92,21 @@ class IncidentViewModel(
         // Transition to ACTIVE_GRACE
         sessionManager.activateSession()
         startGraceCountdown(5)
+
+        // Asynchronously notify backend with idempotency token
+        incidentRepository?.let { repo ->
+            scope.launch {
+                repo.createIncident(
+                    clientSessionId = session.sessionId,
+                    deviceId = session.deviceId,
+                    activationMethod = session.activationMethod.name,
+                    battery = session.initialBattery.levelPercent,
+                    latitude = session.initialLocation?.latitude,
+                    longitude = session.initialLocation?.longitude,
+                    accuracy = session.initialLocation?.accuracyMeters
+                )
+            }
+        }
     }
 
     /**
@@ -161,9 +177,9 @@ class IncidentViewModel(
     /**
      * Safe credential entered: Disarms and terminates session cleanly.
      */
-    fun handleSafeCancelled() {
+    fun handleSafeCancelled(pin: String = "1234") {
         graceTimerJob?.cancel()
-        sessionManager.markSafeCancelled()
+        val session = sessionManager.markSafeCancelled()
         sessionManager.stateMachine.transition(IncidentEvent.ResolveIncident)
         _uiState.update {
             it.copy(
@@ -171,15 +187,23 @@ class IncidentViewModel(
                 incidentState = IncidentState.ENDED
             )
         }
+
+        incidentRepository?.let { repo ->
+            session?.let { s ->
+                scope.launch {
+                    repo.cancelIncident(s.incidentId, pin)
+                }
+            }
+        }
     }
 
     /**
      * Duress credential entered: Covertly logs COERCED_DURESS, triggers silent alert,
      * while UI mirrors the safe resolution.
      */
-    fun handleDuressCancelled() {
+    fun handleDuressCancelled(duressPin: String = "9999") {
         graceTimerJob?.cancel()
-        sessionManager.markDuressCancelled()
+        val session = sessionManager.markDuressCancelled()
         // In the background, covertly escalate:
         sessionManager.stateMachine.transition(IncidentEvent.EscalationDispatched)
         _uiState.update {
@@ -187,6 +211,14 @@ class IncidentViewModel(
                 isCancellationSheetVisible = false,
                 isSilentDuressActive = true
             )
+        }
+
+        incidentRepository?.let { repo ->
+            session?.let { s ->
+                scope.launch {
+                    repo.cancelWithDuress(s.incidentId, duressPin)
+                }
+            }
         }
     }
 
