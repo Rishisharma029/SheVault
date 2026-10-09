@@ -2,8 +2,14 @@ package com.shevault.core.design
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.shevault.core.design.tokens.BatteryTokens
 import com.shevault.core.design.tokens.BottomNavTokens
 import com.shevault.core.design.tokens.BrandTokens
+import com.shevault.core.design.tokens.ButtonTokens
+import com.shevault.core.design.tokens.CardTokens
+import com.shevault.core.design.tokens.ChartTokens
+import com.shevault.core.design.tokens.CheckInTokens
+import com.shevault.core.design.tokens.ConnectivityTokens
 import com.shevault.core.design.tokens.DarkNeutralTokens
 import com.shevault.core.design.tokens.DarkSheVaultColorScheme
 import com.shevault.core.design.tokens.DarkSheVaultStatusTokens
@@ -14,13 +20,28 @@ import com.shevault.core.design.tokens.DefaultSheVaultRadius
 import com.shevault.core.design.tokens.DefaultSheVaultSpacing
 import com.shevault.core.design.tokens.DefaultSheVaultTypography
 import com.shevault.core.design.tokens.DiscreteSheVaultColorScheme
+import com.shevault.core.design.tokens.EmergencyTokens
+import com.shevault.core.design.tokens.FocusRingTokens
+import com.shevault.core.design.tokens.GradientTokens
+import com.shevault.core.design.tokens.HistoryTokens
+import com.shevault.core.design.tokens.IncidentTimelineTokens
+import com.shevault.core.design.tokens.InfoTokens
+import com.shevault.core.design.tokens.InputFieldTokens
 import com.shevault.core.design.tokens.LightNeutralTokens
 import com.shevault.core.design.tokens.LightSheVaultColorScheme
 import com.shevault.core.design.tokens.LightSheVaultStatusTokens
+import com.shevault.core.design.tokens.LocationStatusTokens
+import com.shevault.core.design.tokens.MapTokens
+import com.shevault.core.design.tokens.OverlayTokens
 import com.shevault.core.design.tokens.SafeTokens
 import com.shevault.core.design.tokens.SafetyState
+import com.shevault.core.design.tokens.SelectionTokens
 import com.shevault.core.design.tokens.SheVaultColors
 import com.shevault.core.design.tokens.SheVaultSafetyStatus
+import com.shevault.core.design.tokens.SkeletonTokens
+import com.shevault.core.design.tokens.SosVisualTokens
+import com.shevault.core.design.tokens.TextHierarchyTokens
+import com.shevault.core.design.tokens.TrustedCircleTokens
 import com.shevault.core.design.tokens.WarningTokens
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -76,6 +97,108 @@ class ThemeTokensTest {
         // Warning Default must be #B54708 (never amber #D9911E)
         assertEquals("Warning Default must be #B54708", Color(0xFFB54708), WarningTokens.default)
         assertEquals("Warning Surface must be #FFF4E5", Color(0xFFFFF4E5), WarningTokens.surface)
+    }
+
+    @Test
+    fun testButtonTokens() {
+        assertEquals(BrandTokens.primary, ButtonTokens.primaryBackground)
+        assertEquals(BrandTokens.primaryDark, ButtonTokens.primaryPressed)
+        assertEquals(SheVaultColors.emergency, ButtonTokens.emergencyBackground)
+        assertEquals(EmergencyTokens.dark, ButtonTokens.emergencyPressed)
+        assertEquals(SafeTokens.default, ButtonTokens.safeBackground)
+        assertEquals(SafeTokens.dark, ButtonTokens.safePressed)
+    }
+
+    @Test
+    fun testTextHierarchyTokens() {
+        assertEquals(Color(0xFF211D20), TextHierarchyTokens.primaryHeading)
+        assertEquals(Color(0xFF5C5459), TextHierarchyTokens.secondary)
+        assertEquals(Color(0xFF9D959A), TextHierarchyTokens.disabled)
+        assertEquals(Color(0xFFA61B23), TextHierarchyTokens.emergency)
+        assertEquals(Color(0xFF0A5B55), TextHierarchyTokens.safe)
+        assertEquals(Color(0xFFB54708), TextHierarchyTokens.warning)
+        assertEquals(Color(0xFF2E6093), TextHierarchyTokens.info)
+    }
+
+    @Test
+    fun testSelectionTokens() {
+        assertEquals(BrandTokens.primaryTint, SelectionTokens.lightBackground)
+        assertEquals(BrandTokens.primary, SelectionTokens.lightBorder)
+        assertEquals(FocusRingTokens.dark, SelectionTokens.darkBorder)
+    }
+
+    @Test
+    fun testInputFieldTokens() {
+        assertEquals(Color(0xFFFFFFFF), InputFieldTokens.normalBackground)
+        assertEquals(BrandTokens.primary, InputFieldTokens.focusBorder)
+        assertEquals(SheVaultColors.emergency, InputFieldTokens.errorBorder)
+        assertEquals(SafeTokens.default, InputFieldTokens.successBorder)
+    }
+
+    @Test
+    fun testSosVisualTokens() {
+        assertEquals(SheVaultColors.emergency, SosVisualTokens.idleColor)
+        assertEquals(SheVaultColors.emergency, SosVisualTokens.holdingColor)
+        assertEquals(EmergencyTokens.dark, SosVisualTokens.holdingRing)
+        assertEquals(EmergencyTokens.surface, SosVisualTokens.holdingBg)
+        assertEquals(SheVaultColors.emergency, SosVisualTokens.activePrimary)
+        assertEquals(EmergencyTokens.dark, SosVisualTokens.activeCritical)
+    }
+
+    @Test
+    fun testIncidentTimelineTokens() {
+        assertEquals(BrandTokens.primary, IncidentTimelineTokens.started)
+        assertEquals(InfoTokens.default, IncidentTimelineTokens.location)
+        assertEquals(SafeTokens.default, IncidentTimelineTokens.contact)
+        assertEquals(WarningTokens.default, IncidentTimelineTokens.networkLost)
+        assertEquals(SheVaultColors.emergency, IncidentTimelineTokens.escalation)
+        assertEquals(SafeTokens.default, IncidentTimelineTokens.ended)
+    }
+
+    @Test
+    fun testConnectivityAndBatteryTokens() {
+        assertEquals(SafeTokens.default, ConnectivityTokens.connected)
+        assertEquals(WarningTokens.default, ConnectivityTokens.degraded)
+        assertEquals(LightNeutralTokens.textSecondary, ConnectivityTokens.offline)
+        assertEquals(InfoTokens.default, ConnectivityTokens.restoring)
+
+        assertEquals(SafeTokens.default, BatteryTokens.safe)
+        assertEquals(LightNeutralTokens.textSecondary, BatteryTokens.neutral)
+        assertEquals(WarningTokens.default, BatteryTokens.warning)
+        assertEquals(SheVaultColors.emergency, BatteryTokens.emergency)
+    }
+
+    @Test
+    fun testLocationAndMapTokens() {
+        assertEquals(SafeTokens.default, LocationStatusTokens.excellent)
+        assertEquals(InfoTokens.default, LocationStatusTokens.approximate)
+        assertEquals(WarningTokens.default, LocationStatusTokens.degraded)
+        assertEquals(SheVaultColors.emergency, LocationStatusTokens.unavailable)
+
+        assertEquals(EmergencyTokens.surface, MapTokens.markerOuterRing)
+        assertEquals(SheVaultColors.emergency, MapTokens.markerPin)
+        assertEquals(BrandTokens.primary, MapTokens.routeNormal)
+        assertEquals(SafeTokens.default, MapTokens.routeRecommended)
+    }
+
+    @Test
+    fun testFeaturePalettes() {
+        assertEquals(SafeTokens.default, TrustedCircleTokens.activeContact)
+        assertEquals(WarningTokens.default, TrustedCircleTokens.pending)
+        assertEquals(SheVaultColors.emergency, TrustedCircleTokens.failed)
+
+        assertEquals(BrandTokens.primary, CheckInTokens.active)
+        assertEquals(SafeTokens.default, CheckInTokens.completed)
+        assertEquals(WarningTokens.default, CheckInTokens.overdue)
+        assertEquals(SheVaultColors.emergency, CheckInTokens.escalated)
+
+        assertEquals(SafeTokens.default, HistoryTokens.completed)
+        assertEquals(LightNeutralTokens.textSecondary, HistoryTokens.cancelled)
+        assertEquals(SheVaultColors.emergency, HistoryTokens.escalated)
+
+        assertEquals(BrandTokens.primary, ChartTokens.primary)
+        assertEquals(InfoTokens.default, ChartTokens.secondary)
+        assertEquals(SheVaultColors.emergency, ChartTokens.emergency)
     }
 
     @Test

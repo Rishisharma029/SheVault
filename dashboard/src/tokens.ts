@@ -91,6 +91,196 @@ export const BottomNavTokens = {
   darkActivePill: "rgba(201, 120, 168, 0.14)",
 } as const;
 
+export const ButtonTokens = {
+  primaryBackground: BrandTokens.primary,
+  primaryText: "#FFFFFF",
+  primaryPressed: BrandTokens.primaryDark,
+
+  emergencyBackground: EmergencyTokens.default,
+  emergencyText: "#FFFFFF",
+  emergencyPressed: EmergencyTokens.dark,
+
+  safeBackground: SafeTokens.default,
+  safeText: "#FFFFFF",
+  safePressed: SafeTokens.dark,
+
+  secondaryBackground: "#FFFFFF",
+  secondaryText: BrandTokens.primary,
+  secondaryBorder: LightNeutralTokens.border,
+  secondaryPressedBg: BrandTokens.primaryTint,
+
+  darkSecondaryBackground: DarkNeutralTokens.surfaceElevated,
+  darkSecondaryText: FocusRingTokens.dark,
+  darkSecondaryBorder: DarkNeutralTokens.border,
+} as const;
+
+export const TextHierarchyTokens = {
+  primaryHeading: LightNeutralTokens.textPrimary,
+  body: LightNeutralTokens.textPrimary,
+  secondary: LightNeutralTokens.textSecondary,
+  disabled: LightNeutralTokens.textDisabled,
+  emergency: EmergencyTokens.dark,
+  safe: SafeTokens.dark,
+  warning: WarningTokens.default,
+  info: InfoTokens.dark,
+
+  darkPrimary: DarkNeutralTokens.textPrimary,
+  darkSecondary: DarkNeutralTokens.textSecondary,
+  darkDisabled: DarkNeutralTokens.textDisabled,
+} as const;
+
+export const SelectionTokens = {
+  lightBackground: BrandTokens.primaryTint,
+  lightBorder: BrandTokens.primary,
+  lightIcon: BrandTokens.primary,
+
+  darkBackground: "rgba(201, 120, 168, 0.15)",
+  darkBorder: FocusRingTokens.dark,
+  darkIcon: FocusRingTokens.dark,
+} as const;
+
+export const InputFieldTokens = {
+  normalBackground: LightNeutralTokens.surface,
+  normalBorder: LightNeutralTokens.border,
+  normalText: LightNeutralTokens.textPrimary,
+  normalPlaceholder: LightNeutralTokens.textSecondary,
+
+  focusBorder: BrandTokens.primary,
+
+  errorBorder: EmergencyTokens.default,
+  errorBackground: EmergencyTokens.surface,
+
+  successBorder: SafeTokens.default,
+  successBackground: SafeTokens.surface,
+} as const;
+
+export const CardTokens = {
+  normalSurface: LightNeutralTokens.surface,
+  normalBorder: LightNeutralTokens.border,
+  normalShadow: "rgba(74, 31, 61, 0.08)",
+
+  brandBackground: BrandTokens.primaryTint,
+  brandBorder: "rgba(109, 46, 91, 0.12)",
+
+  safeBackground: SafeTokens.surface,
+  safeBorder: "rgba(15, 118, 110, 0.15)",
+
+  warningBackground: WarningTokens.surface,
+  warningBorder: "rgba(181, 71, 8, 0.15)",
+
+  emergencyBackground: EmergencyTokens.surface,
+  emergencyBorder: "rgba(201, 42, 50, 0.15)",
+} as const;
+
+export const SosVisualTokens = {
+  idleColor: EmergencyTokens.default,
+  idleRing: "rgba(201, 42, 50, 0.12)",
+  idleText: LightNeutralTokens.textPrimary,
+
+  holdingColor: EmergencyTokens.default,
+  holdingRing: EmergencyTokens.dark,
+  holdingBg: EmergencyTokens.surface,
+
+  activePrimary: EmergencyTokens.default,
+  activeCritical: EmergencyTokens.dark,
+  activeSurface: EmergencyTokens.surface,
+} as const;
+
+export const IncidentTimelineTokens = {
+  started: BrandTokens.primary,
+  location: InfoTokens.default,
+  contact: SafeTokens.default,
+  networkLost: WarningTokens.default,
+  escalation: EmergencyTokens.default,
+  ended: SafeTokens.default,
+} as const;
+
+export const ConnectivityTokens = {
+  connected: SafeTokens.default,
+  degraded: WarningTokens.default,
+  offline: LightNeutralTokens.textSecondary,
+  restoring: InfoTokens.default,
+} as const;
+
+export const BatteryTokens = {
+  safe: SafeTokens.default,
+  neutral: LightNeutralTokens.textSecondary,
+  warning: WarningTokens.default,
+  warningCritical: WarningTokens.default,
+  emergency: EmergencyTokens.default,
+} as const;
+
+export const LocationStatusTokens = {
+  excellent: SafeTokens.default,
+  approximate: InfoTokens.default,
+  degraded: WarningTokens.default,
+  unavailable: EmergencyTokens.default,
+} as const;
+
+export const MapTokens = {
+  markerOuterRing: EmergencyTokens.surface,
+  markerPin: EmergencyTokens.default,
+  markerCenter: "#FFFFFF",
+
+  routeNormal: BrandTokens.primary,
+  routeRecommended: SafeTokens.default,
+  routeAlternative: InfoTokens.default,
+  routeUncertain: WarningTokens.default,
+
+  accuracyCircle: "rgba(201, 42, 50, 0.12)",
+} as const;
+
+export const TrustedCircleTokens = {
+  activeContact: SafeTokens.default,
+  activeText: LightNeutralTokens.textPrimary,
+  pending: WarningTokens.default,
+  failed: EmergencyTokens.default,
+  disabled: LightNeutralTokens.textDisabled,
+} as const;
+
+export const CheckInTokens = {
+  active: BrandTokens.primary,
+  completed: SafeTokens.default,
+  overdue: WarningTokens.default,
+  escalated: EmergencyTokens.default,
+} as const;
+
+export const HistoryTokens = {
+  completed: SafeTokens.default,
+  cancelled: LightNeutralTokens.textSecondary,
+  escalated: EmergencyTokens.default,
+  unknown: LightNeutralTokens.textDisabled,
+} as const;
+
+export const OverlayTokens = {
+  scrimLight: "rgba(33, 29, 32, 0.32)",
+  scrimDark: "rgba(0, 0, 0, 0.48)",
+  surfaceGlass: "rgba(255, 255, 255, 0.72)",
+  surfaceDarkGlass: "rgba(43, 34, 42, 0.80)",
+} as const;
+
+export const SkeletonTokens = {
+  lightBase: "#F1ECEF",
+  lightHighlight: "#F8F4F6",
+  darkBase: "#2B222A",
+  darkHighlight: "#342B33",
+} as const;
+
+export const ChartTokens = {
+  primary: BrandTokens.primary,
+  secondary: InfoTokens.default,
+  safe: SafeTokens.default,
+  warning: WarningTokens.default,
+  emergency: EmergencyTokens.default,
+} as const;
+
+export const GradientTokens = {
+  brandStart: BrandTokens.primary,
+  brandEnd: BrandTokens.rose,
+  warmStart: BrandTokens.primaryTint,
+  warmEnd: BrandTokens.peach,
+} as const;
+
 export const SheVaultColors = {
   emergency: EmergencyTokens.default,
   emergencyDark: EmergencyTokens.dark,

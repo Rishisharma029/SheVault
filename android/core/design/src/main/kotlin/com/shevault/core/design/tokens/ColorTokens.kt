@@ -128,10 +128,10 @@ object ScrimTokens {
 }
 
 object SkeletonTokens {
-    val lightBase      = Color(0xFFF3ECEF)
-    val lightHighlight = Color(0xFFFAF6F8)
+    val lightBase      = Color(0xFFF1ECEF) // Section 29
+    val lightHighlight = Color(0xFFF8F4F6)
     val darkBase       = Color(0xFF2B222A)
-    val darkHighlight  = Color(0xFF3B3038)
+    val darkHighlight  = Color(0xFF342B33)
 }
 
 /**
@@ -145,6 +145,255 @@ object BottomNavTokens {
     val darkInactive    = Color(0xFFAFA3AC)
     val darkActive      = Color(0xFFC978A8)
     val darkActivePill  = Color(0x24C978A8) // rgba(201, 120, 168, 0.14)
+}
+
+/**
+ * 9. Button Palette Tokens (Section 9)
+ */
+object ButtonTokens {
+    // Primary Button
+    val primaryBackground = BrandTokens.primary      // #6D2E5B
+    val primaryText       = Color(0xFFFFFFFF)
+    val primaryPressed    = BrandTokens.primaryDark  // #4A1F3D
+
+    // Emergency Button
+    val emergencyBackground = SheVaultColors.emergency // #C92A32
+    val emergencyText       = Color(0xFFFFFFFF)
+    val emergencyPressed    = EmergencyTokens.dark    // #A61B23
+
+    // Safe Button
+    val safeBackground = SafeTokens.default    // #0F766E
+    val safeText       = Color(0xFFFFFFFF)
+    val safePressed    = SafeTokens.dark       // #0A5B55
+
+    // Secondary (Light)
+    val secondaryBackground = Color(0xFFFFFFFF)
+    val secondaryText       = BrandTokens.primary      // #6D2E5B
+    val secondaryBorder     = LightNeutralTokens.border // #E7DEE3
+    val secondaryPressedBg  = BrandTokens.primaryTint  // #F1E5EF
+
+    // Secondary (Dark)
+    val darkSecondaryBackground = DarkNeutralTokens.surfaceElevated // #2B222A
+    val darkSecondaryText       = FocusRingTokens.dark             // #C978A8
+    val darkSecondaryBorder     = DarkNeutralTokens.border         // #3B3038
+}
+
+/**
+ * 10. Text Hierarchy Tokens (Section 10)
+ */
+object TextHierarchyTokens {
+    val primaryHeading = LightNeutralTokens.textPrimary // #211D20
+    val body           = LightNeutralTokens.textPrimary // #211D20
+    val secondary      = LightNeutralTokens.textSecondary // #5C5459
+    val disabled       = LightNeutralTokens.textDisabled // #9D959A
+    val emergency      = EmergencyTokens.dark          // #A61B23
+    val safe           = SafeTokens.dark               // #0A5B55
+    val warning        = WarningTokens.default         // #B54708
+    val info           = InfoTokens.dark               // #2E6093
+
+    // Dark Mode Text
+    val darkPrimary    = DarkNeutralTokens.textPrimary   // #F8F2F5
+    val darkSecondary  = DarkNeutralTokens.textSecondary // #C8BDC5
+    val darkDisabled   = DarkNeutralTokens.textDisabled  // #756A73
+}
+
+/**
+ * 12. Selection Tokens (Section 12)
+ */
+object SelectionTokens {
+    // Light
+    val lightBackground = BrandTokens.primaryTint // #F1E5EF
+    val lightBorder     = BrandTokens.primary     // #6D2E5B
+    val lightIcon       = BrandTokens.primary     // #6D2E5B
+
+    // Dark
+    val darkBackground  = Color(0x26C978A8)       // rgba(201,120,168,0.15)
+    val darkBorder      = FocusRingTokens.dark    // #C978A8
+    val darkIcon        = FocusRingTokens.dark    // #C978A8
+}
+
+/**
+ * 13. Input Field Tokens (Section 13)
+ */
+object InputFieldTokens {
+    val normalBackground  = LightNeutralTokens.surface      // #FFFFFF
+    val normalBorder      = LightNeutralTokens.border       // #E7DEE3
+    val normalText        = LightNeutralTokens.textPrimary  // #211D20
+    val normalPlaceholder = LightNeutralTokens.textSecondary// #5C5459
+
+    val focusBorder       = BrandTokens.primary             // #6D2E5B
+
+    val errorBorder       = SheVaultColors.emergency        // #C92A32
+    val errorBackground   = EmergencyTokens.surface         // #FDEBEC
+
+    val successBorder     = SafeTokens.default              // #0F766E
+    val successBackground = SafeTokens.surface              // #E6F5F2
+}
+
+/**
+ * 14. Card Palette Tokens (Section 14)
+ */
+object CardTokens {
+    // Normal Card
+    val normalSurface = LightNeutralTokens.surface // #FFFFFF
+    val normalBorder  = LightNeutralTokens.border  // #E7DEE3
+    val normalShadow  = ShadowTokens.card          // rgba(74,31,61,0.08)
+
+    // Brand Card
+    val brandBackground = BrandTokens.primaryTint // #F1E5EF
+    val brandBorder     = Color(0x1F6D2E5B)       // rgba(109,46,91,0.12)
+
+    // Safe Card
+    val safeBackground  = SafeTokens.surface      // #E6F5F2
+    val safeBorder      = Color(0x260F766E)       // rgba(15,118,110,0.15)
+
+    // Warning Card
+    val warningBackground = WarningTokens.surface // #FFF4E5
+    val warningBorder     = Color(0x26B54708)     // rgba(181,71,8,0.15)
+
+    // Emergency Card
+    val emergencyBackground = EmergencyTokens.surface // #FDEBEC
+    val emergencyBorder     = Color(0x26C92A32)       // rgba(201,42,50,0.15)
+}
+
+/**
+ * 15. SOS Visual Language Tokens (Section 15)
+ */
+object SosVisualTokens {
+    val idleColor    = SheVaultColors.emergency // #C92A32
+    val idleRing     = Color(0x1FC92A32)        // rgba(201,42,50,0.12)
+    val idleText     = LightNeutralTokens.textPrimary // #211D20
+
+    val holdingColor = SheVaultColors.emergency // #C92A32
+    val holdingRing  = EmergencyTokens.dark     // #A61B23
+    val holdingBg    = EmergencyTokens.surface  // #FDEBEC
+
+    val activePrimary= SheVaultColors.emergency // #C92A32
+    val activeCritical= EmergencyTokens.dark    // #A61B23
+    val activeSurface = EmergencyTokens.surface // #FDEBEC
+}
+
+/**
+ * 16. Incident Timeline Tokens (Section 16)
+ */
+object IncidentTimelineTokens {
+    val started     = BrandTokens.primary      // Plum #6D2E5B
+    val location    = InfoTokens.default       // Blue #3978B8
+    val contact     = SafeTokens.default       // Teal #0F766E
+    val networkLost = WarningTokens.default    // Amber #B54708
+    val escalation  = SheVaultColors.emergency // Red #C92A32
+    val ended       = SafeTokens.default       // Teal #0F766E
+}
+
+/**
+ * 17. Connectivity Tokens (Section 17)
+ */
+object ConnectivityTokens {
+    val connected = SafeTokens.default               // #0F766E
+    val degraded  = WarningTokens.default            // #B54708
+    val offline   = LightNeutralTokens.textSecondary // #5C5459
+    val restoring = InfoTokens.default               // #3978B8
+}
+
+/**
+ * 18. Battery Tokens (Section 18)
+ */
+object BatteryTokens {
+    val safe            = SafeTokens.default               // 80–100%: #0F766E
+    val neutral         = LightNeutralTokens.textSecondary // 40–79%: #5C5459
+    val warning         = WarningTokens.default            // 20–39%: #B54708
+    val warningCritical = WarningTokens.default            // 10–19%: #B54708
+    val emergency       = SheVaultColors.emergency         // <10%: #C92A32
+}
+
+/**
+ * 19. Location Status Tokens (Section 19)
+ */
+object LocationStatusTokens {
+    val excellent   = SafeTokens.default       // #0F766E
+    val approximate = InfoTokens.default       // #3978B8
+    val degraded    = WarningTokens.default    // #B54708
+    val unavailable = SheVaultColors.emergency // #C92A32
+}
+
+/**
+ * 20. Map Palette Tokens (Section 20)
+ */
+object MapTokens {
+    val markerOuterRing = EmergencyTokens.surface  // #FDEBEC
+    val markerPin       = SheVaultColors.emergency // #C92A32
+    val markerCenter    = Color(0xFFFFFFFF)
+
+    val routeNormal     = BrandTokens.primary      // #6D2E5B
+    val routeRecommended= SafeTokens.default       // #0F766E
+    val routeAlternative= InfoTokens.default       // #3978B8
+    val routeUncertain  = WarningTokens.default    // #B54708
+
+    val accuracyCircle  = Color(0x1FC92A32)        // rgba(201,42,50,0.12)
+}
+
+/**
+ * 21. Trusted Circle Palette Tokens (Section 21)
+ */
+object TrustedCircleTokens {
+    val activeContact = SafeTokens.default               // #0F766E
+    val activeText    = LightNeutralTokens.textPrimary   // #211D20
+    val pending       = WarningTokens.default            // #B54708
+    val failed        = SheVaultColors.emergency         // #C92A32
+    val disabled      = LightNeutralTokens.textDisabled  // #9D959A
+}
+
+/**
+ * 22. Check-In Palette Tokens (Section 22)
+ */
+object CheckInTokens {
+    val active    = BrandTokens.primary      // #6D2E5B
+    val completed = SafeTokens.default       // #0F766E
+    val overdue   = WarningTokens.default    // #B54708
+    val escalated = SheVaultColors.emergency // #C92A32
+}
+
+/**
+ * 23. History Palette Tokens (Section 23)
+ */
+object HistoryTokens {
+    val completed = SafeTokens.default               // #0F766E
+    val cancelled = LightNeutralTokens.textSecondary // #5C5459
+    val escalated = SheVaultColors.emergency         // #C92A32
+    val unknown   = LightNeutralTokens.textDisabled  // #9D959A
+}
+
+/**
+ * 28. Overlay & Glass Tokens (Section 28)
+ */
+object OverlayTokens {
+    val scrimLight       = ScrimTokens.light        // rgba(33,29,32,0.32)
+    val scrimDark        = ScrimTokens.dark         // rgba(0,0,0,0.48)
+    val surfaceGlass     = Color(0xB8FFFFFF)        // rgba(255,255,255,0.72)
+    val surfaceDarkGlass = Color(0xCC2B222A)        // rgba(43,34,42,0.80)
+}
+
+/**
+ * 30. Chart / Analytics Palette Tokens (Section 30)
+ */
+object ChartTokens {
+    val primary   = BrandTokens.primary      // #6D2E5B
+    val secondary = InfoTokens.default       // #3978B8
+    val safe      = SafeTokens.default       // #0F766E
+    val warning   = WarningTokens.default    // #B54708
+    val emergency = SheVaultColors.emergency // #C92A32
+}
+
+/**
+ * 32. Approved Gradient Tokens (Section 32)
+ * Rule: Never use gradients on SOS.
+ */
+object GradientTokens {
+    val brandStart = BrandTokens.primary // #6D2E5B
+    val brandEnd   = BrandTokens.rose    // #C85C7B
+
+    val warmStart  = BrandTokens.primaryTint // #F1E5EF
+    val warmEnd    = BrandTokens.peach       // #F4B6A6
 }
 
 /**
